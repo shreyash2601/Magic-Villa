@@ -1,12 +1,14 @@
 using MagicVillaAPI.Data;
 using MagicVillaAPI.Models;
 using MagicVillaAPI.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MagicVillaAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class VillaAPIController : ControllerBase
     {
@@ -20,7 +22,7 @@ namespace MagicVillaAPI.Controllers
             villaRepository = _villaRepository;
         }
 
-        [HttpGet]
+        [HttpGet("get-all-villas")]
         public async Task<ActionResult<IEnumerable<Villa>>> GetVillas()
         {
             logger.LogInformation($"{controllerName}: Getting all villas...");
@@ -28,11 +30,11 @@ namespace MagicVillaAPI.Controllers
             return Ok(villas);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("get-villa/{id:int}")]
         public async Task<ActionResult<Villa>> GetVilla(int id)
         {
             logger.LogInformation($"{controllerName}: Getting villa with ID {id}...");
-            // var villa = await db.Villas.FirstOrDefaultAsync(villa => villa.Id == id);
+
             var villa = await villaRepository.GetAsync(v => v.Id == id);
             if (villa == null)
             {
@@ -42,7 +44,8 @@ namespace MagicVillaAPI.Controllers
             return Ok(villa);
         }
 
-        [HttpPost]
+        [HttpPost("post-villa")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Villa>> PostVilla([FromBody] Villa villa)
         {
             logger.LogInformation($"{controllerName}: Attempting to add new villa '{villa.Name}'...");
@@ -58,7 +61,8 @@ namespace MagicVillaAPI.Controllers
             return Created();
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("update-villa/{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Villa>> EditVilla(int id, [FromBody] Villa villa)
         {
             logger.LogInformation($"{controllerName}: Attempting to update villa with ID {id}...");
@@ -91,7 +95,8 @@ namespace MagicVillaAPI.Controllers
         }
 
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("delete-villa/{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteVilla(int id)
         {
             logger.LogInformation($"{controllerName}: Attempting to delete villa with ID {id}...");
