@@ -1,0 +1,70 @@
+# .NET build output
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code settings
+.vscode/
+
+# Rider settings
+.idea/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+*.nuspec
+
+# Visual Studio cache files
+*.cache
+*.dbmdl
+
+# Logs
+*.log
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Publish output
+publish/
+*.pubxml
+*.publishproj
+
+# Entity Framework
+Migrations/
+
+# Others
+*.vspscc
+*.vssscc
+*.pdb
+
+# Dotnet environment files
+.env
+
+# Temporary files
+*.tmp
+*.temp
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Dotnet 9 specific (future-proof)
+artifacts/
