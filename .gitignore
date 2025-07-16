@@ -68,3 +68,6 @@ ehthumbs.db
 
 # Dotnet 9 specific (future-proof)
 artifacts/
+
+
+.DS_Store
